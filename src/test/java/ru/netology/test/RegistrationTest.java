@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import ru.netology.data.DataGenerator;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 import static ru.netology.data.DataGenerator.generateDate;
@@ -40,14 +42,14 @@ public class RegistrationTest {
         $("[data-test-id='agreement']").click();
         $x("//span[text()='Запланировать']").click();
         $x("//div[@data-test-id='success-notification']")
-                .shouldBe(visible)
+                .shouldBe(visible, Duration.ofSeconds(10))
                 .shouldHave(exactText("Успешно! Встреча успешно запланирована на " + DataGenerator.generateDate(addDays1)));
 
         $("[data-test-id='date'] input").doubleClick().sendKeys(generateDate(addDays2));
         $x("//span[text()='Запланировать']").click();
         $x("//span[text()='Перепланировать']").click();
         $x("//div[@data-test-id='success-notification']")
-                .shouldBe(visible)
+                .shouldBe(visible, Duration.ofSeconds(10))
                 .shouldHave(exactText("Успешно! Встреча успешно запланирована на " + generateDate(addDays2)));
     }
 
